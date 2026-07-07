@@ -1,0 +1,13 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["7M73V7DZUT.com.flickmoji.app"],
+        "components": [
+          { "/": "/puzzle", "comment": "Ask-a-Friend puzzle links (?id=...)" },
+          { "/": "/daily", "comment": "Daily duel links" }
+        ]
+      }
+    ]
+  }
+}
