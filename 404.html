@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flickmoji — Guess the Movie from Emojis</title>
+<meta property="og:title" content="Flickmoji — Guess the Movie from Emojis">
+<meta property="og:description" content="Movie trivia told in emojis. A new mystery movie every day.">
+<style>
+  :root {
+    --ink: #111211;
+    --cream: #F3EFE7;
+    --salmon: #D6695C;
+    --denim: #74A2C5;
+    --butter: #F2CC6B;
+  }
+  * { margin: 0; box-sizing: border-box; }
+  body {
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    font-family: ui-rounded, "SF Pro Rounded", "Arial Rounded MT Bold", system-ui, sans-serif;
+    color: var(--ink);
+    background: var(--cream);
+    background-image: repeating-linear-gradient(
+      90deg, rgba(214,105,92,0.10) 0 34px, rgba(214,105,92,0) 34px 68px);
+    padding: 24px;
+  }
+  main { text-align: center; max-width: 420px; }
+  .popcorn { font-size: 72px; line-height: 1; }
+  h1 {
+    font-size: 34px; letter-spacing: 1px; margin: 14px 0 6px;
+    color: var(--denim);
+    -webkit-text-stroke: 1.5px var(--ink);
+    text-transform: uppercase;
+  }
+  p { font-size: 17px; line-height: 1.45; margin: 10px 0 22px; }
+  .btn {
+    display: block; width: 100%; padding: 15px 18px; margin: 10px 0;
+    border: 3px solid var(--ink); border-radius: 14px;
+    font-size: 18px; font-weight: 700; text-decoration: none;
+    color: var(--cream); background: var(--salmon);
+    box-shadow: 0 4px 0 var(--ink);
+  }
+  .btn.secondary { background: var(--denim); }
+  .btn:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--ink); }
+  .fine { font-size: 13px; opacity: 0.65; margin-top: 18px; }
+</style>
+</head>
+<body>
+<main>
+  <div class="popcorn">🍿</div>
+  <h1 id="headline">Flickmoji</h1>
+  <p id="blurb">Guess the movie from emojis. Movie trivia, told frame by frame — a new mystery movie every day.</p>
+  <a class="btn" id="store" href="#">Get Flickmoji</a>
+  <a class="btn secondary" id="openapp" href="#" hidden>Open in the app</a>
+  <p class="fine">If you have Flickmoji installed, this link opens straight into the game.</p>
+</main>
+<script>
+  // Set this to the real App Store URL once the app is live
+  // (https://apps.apple.com/app/id<APPLE_ID>). Until then it goes nowhere useful.
+  var APP_STORE_URL = "https://apps.apple.com/us/app/flickmoji";
+
+  var path = location.pathname.replace(/\/+$/, "");
+  var params = new URLSearchParams(location.search);
+  var headline = document.getElementById("headline");
+  var blurb = document.getElementById("blurb");
+  var openapp = document.getElementById("openapp");
+
+  if (path === "/daily") {
+    headline.textContent = "Daily Duel!";
+    blurb.textContent = "A friend challenged you to today's mystery movie. Fastest correct guess wins — grab the app and race them.";
+    openapp.href = "flickmoji://daily";
+    openapp.hidden = false;
+  } else if (path === "/puzzle" && params.get("id")) {
+    headline.textContent = "Help me out!";
+    blurb.textContent = "A friend is stumped on a movie puzzle. Open it in Flickmoji to see the emoji clues play out.";
+    openapp.href = "flickmoji://puzzle?id=" + encodeURIComponent(params.get("id"));
+    openapp.hidden = false;
+  }
+  document.getElementById("store").href = APP_STORE_URL;
+</script>
+</body>
+</html>
